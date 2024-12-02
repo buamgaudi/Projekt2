@@ -33,10 +33,27 @@ public class SampleStore {
             "Stahl");
         itemSteckAchse.setEstimatedWeight(5);
 
+        Item itemMotor = new Item("Motor", 
+            "Motor als Baugruppe", 
+            "Metall");
+        itemMotor.setCalculatedWeight(150);
+
+        Item itemKolben = new Item("Kolben", 
+            "Kolben als Einzelteil", 
+            "Aluminium");
+        itemKolben.setWeightedWeight(30);
+
+        itemMotor.getUses().add(
+            new ItemInstance("Kolben", itemKolben));
+
         itemAuto.getUses().add(
             new ItemInstance(
                 "Vorderachse", 
                 itemAchse));
+        itemAuto.getUses().add(
+            new ItemInstance(
+                "Motor", 
+                itemMotor));
         itemAuto.getUses().add(
             new ItemInstance(
                 "Hinterachse", 
@@ -61,6 +78,8 @@ public class SampleStore {
         items.add(itemRad);
         items.add(itemHaube);
         items.add(itemSteckAchse);
+        items.add(itemMotor);
+        items.add(itemKolben);
 
         for (Item item : items) {
             item.Id = items.indexOf(item);

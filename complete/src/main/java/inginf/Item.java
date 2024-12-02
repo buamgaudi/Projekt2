@@ -174,4 +174,28 @@ public class Item {
         }
         return sum;
     }
+
+    public void addItemInstance(ItemInstance itemInstance) {
+        if (itemInstance == null) {
+            throw new IllegalArgumentException("ItemInstance must not be null");
+        }
+        Uses.add(itemInstance);
+    }
+
+    public boolean removeItemInstanceById(int id) {
+        return Uses.removeIf(itemInstance -> itemInstance.getRepresents().getId() == id);
+    }
+
+    public boolean removeItemInstanceByName(String name) {
+        return Uses.removeIf(itemInstance -> itemInstance.getName().equals(name));
+    }
+
+    public void updateUsageDetails(String name, String newUsageDetails) {
+        for (ItemInstance itemInstance : Uses) {
+            if (itemInstance.getName().equals(name)) {
+                itemInstance.setName(newUsageDetails);
+                break;
+            }
+        }
+    }
 }

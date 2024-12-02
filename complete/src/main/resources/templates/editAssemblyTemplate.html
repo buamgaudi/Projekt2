@@ -1,0 +1,56 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Edit Assembly</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<h2>Edit Assembly</h2>
+
+<!-- Form to add a new part to the assembly -->
+<h3>Add New Part</h3>
+<form method="post" th:action="@{/assemblies/addPart}">
+    <table>
+        <tr>
+            <td>Part Name</td>
+            <td><input type="text" name="partName" required/></td>
+        </tr>
+        <tr>
+            <td>Part Description</td>
+            <td><input type="text" name="partDescription" required/></td>
+        </tr>
+        <tr>
+            <td>Usage Details</td>
+            <td><input type="text" name="usageDetails" required/></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td><input type="submit" value="Add Part"/></td>
+        </tr>
+    </table>
+</form>
+
+<!-- List of existing parts in the assembly with options to remove -->
+<h3>Existing Parts</h3>
+<table>
+    <tr>
+        <th>Part Name</th>
+        <th>Description</th>
+        <th>Usage</th>
+        <th>Action</th>
+    </tr>
+    <tr th:each="part : ${assemblyParts}">
+        <td th:text="${part.name}">Part Name</td>
+        <td th:text="${part.description}">Part Description</td>
+        <td th:text="${part.usage}">Usage Details</td>
+        <td>
+            <form method="post" th:action="@{/assemblies/removePart}" th:object="${part}">
+                <input type="hidden" th:name="id" th:value="${part.id}" />
+                <input type="submit" value="Remove"/>
+            </form>
+        </td>
+    </tr>
+</table>
+
+</body>
+</html>

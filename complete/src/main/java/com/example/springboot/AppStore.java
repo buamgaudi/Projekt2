@@ -37,5 +37,23 @@ public class AppStore {
             item.Id = itemStore.get(itemStore.size()-1).Id + 1;
         itemStore.add(item);
         return item;
-    }    
+    }
+
+    public void addPartToAssembly(int assemblyId, inginf.ItemInstance newPart) {
+        for (inginf.Item item : itemStore) {
+            if (item.getId() == assemblyId) {
+                item.getUses().add(newPart);
+                break;
+            }
+        }
+    }
+
+    public void removePartFromAssembly(int assemblyId, int partId) {
+        for (inginf.Item item : itemStore) {
+            if (item.getId() == assemblyId) {
+                item.getUses().removeIf(part -> part.getRepresents().getId() == partId);
+                break;
+            }
+        }
+    }
 }
